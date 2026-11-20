@@ -1,0 +1,13 @@
+{
+  "version": "0",
+  "id": "8f3c2a10-1111-4b2b-9c3d-123456789012",
+  "detail-type": "Scheduled Event",
+  "source": "aws.events",
+  "account": "123456789012",
+  "time": "2026-11-20T19:00:00Z",
+  "region": "eu-west-2",
+  "resources": [
+    "arn:aws:events:eu-west-2:123456789012:rule/auto-stop-hourly"
+  ],
+  "detail": {}
+}

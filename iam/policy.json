@@ -1,0 +1,40 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadInstances",
+      "Effect": "Allow",
+      "Action": ["ec2:DescribeInstances", "rds:DescribeDBInstances"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "StopOptedInEc2",
+      "Effect": "Allow",
+      "Action": "ec2:StopInstances",
+      "Resource": "arn:aws:ec2:*:123456789012:instance/*",
+      "Condition": {"Null": {"aws:ResourceTag/auto-stop-schedule": "false"}}
+    },
+    {
+      "Sid": "StopOptedInRds",
+      "Effect": "Allow",
+      "Action": "rds:StopDBInstance",
+      "Resource": "arn:aws:rds:*:123456789012:db:*",
+      "Condition": {"Null": {"aws:ResourceTag/auto-stop-schedule": "false"}}
+    },
+    {
+      "Sid": "NeverStopProduction",
+      "Effect": "Deny",
+      "Action": ["ec2:StopInstances", "rds:StopDBInstance"],
+      "Resource": "*",
+      "Condition": {
+        "StringEqualsIgnoreCase": {"aws:ResourceTag/environment": ["prod", "production"]}
+      }
+    },
+    {
+      "Sid": "WriteOwnLogs",
+      "Effect": "Allow",
+      "Action": ["logs:CreateLogStream", "logs:PutLogEvents"],
+      "Resource": "arn:aws:logs:*:123456789012:log-group:/aws/lambda/auto-stop:*"
+    }
+  ]
+}
