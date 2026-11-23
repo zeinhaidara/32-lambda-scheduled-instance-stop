@@ -18,6 +18,11 @@ temporary override so it stays up during late work.
 > instances outside business hours based on tags and schedules (with
 > override protection).
 
+Why it matters: non-production instances left running at night and at
+weekends are paid for while nobody uses them. Stopping them on a schedule
+each resource declares, with an override for late work, cuts that cost
+without getting in anyone's way.
+
 ## How it decides
 
 ```mermaid
